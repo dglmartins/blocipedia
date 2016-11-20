@@ -1,2 +1,23 @@
-<h1>Welcome#index</h1>
-<p>Find me in app/views/welcome/index.html.erb</p>
+<br>
+ <div class="jumbotron">
+   <h1>Blocipedia: Social, Markdown Wikis</h1>
+   <p>Create and share Markdown Wikis</p>
+   <p>
+     <!--fix this route path after user func is created-->
+     <%= link_to "Sign Up", new_user_registration_path, class: 'btn btn-primary' %>
+     Or
+     <%= link_to "Sign In", new_user_session_path, class: 'btn btn-primary' %>
+   </p>
+ </div>
+
+ <div class="row">
+   <div class="col-md-4">
+     <h2>Create as many public wikis as you want!</h2>
+     
+   </div>
+   <div class="col-md-4">
+     <h2>Create Private Wikis</h2>
+     <!--update this link -->
+     <%= link_to "Premium Plan", welcome_about_path, class: 'btn btn-primary' %>
+   </div>
+ </div>
