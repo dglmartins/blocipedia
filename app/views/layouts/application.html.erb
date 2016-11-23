@@ -11,8 +11,9 @@
   <body>
     <div class="container">
       <ul class="nav nav-tabs">
-        <li><%= link_to "Blocipedia", welcome_index_path %></li>
-        <li><%= link_to "About", welcome_about_path %></li>
+        <li><%= link_to "Blocipedia", root_path %></li>
+        <li><%= link_to "About", about_path %></li>
+        <li><%= link_to "My Wikis", wikis_path %></li>
       <div class="pull-right user-info">
           <!--fix this path to new user-->
         <% if user_signed_in? %>
@@ -25,8 +26,24 @@
         <% end %>
       </div>
       </ul>
-      <p class="notice"><%= notice %></p>
-      <p class="alert"><%= alert %></p>
+      <% if flash[:notice] %>
+       <div class="alert alert-success">
+         <button type="button" class="close" data-dismiss="alert">&times;</button>
+         <%= flash[:notice] %>
+       </div>
+     <% elsif flash.now[:alert] %>
+       <div class="alert alert-danger">
+         <button type="button" class="close" data-dismiss="alert">&times;</button>
+         <%= flash.now[:alert] %>
+       </div>
+     <% elsif flash[:alert] %>
+       <div class="alert alert-warning">
+         <button type="button" class="close" data-dismiss="alert">&times;</button>
+         <%= flash[:alert] %>
+       </div>
+     <% end %>
+      <!-- <p class="notice"><%= notice %></p>
+      <p class="alert"><%= alert %></p> -->
     <%= yield %>
   </div>
   </body>
