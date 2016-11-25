@@ -15,11 +15,11 @@ class ApplicationPolicy
   end
 
   def create?
-    false
+    user.present?
   end
 
   def new?
-    create?
+    user.present?
   end
 
   def update?
