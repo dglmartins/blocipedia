@@ -1,5 +1,9 @@
-<h1>My Wikis</h1>
-
+<h1>All Wikis</h1>
+<% if user_signed_in? %>
+  <p>Here you can see all public Wikis, and all your private Wikis</p>
+<% else %>
+  <p>All public Wikis.</p>
+<% end %>
  <% @wikis.each do |wiki| %>
    <div class="media">
      <div class="media-body">

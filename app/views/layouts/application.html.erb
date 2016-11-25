@@ -13,12 +13,17 @@
       <ul class="nav nav-tabs">
         <li><%= link_to "Blocipedia", root_path %></li>
         <li><%= link_to "About", about_path %></li>
-        <li><%= link_to "My Wikis", wikis_path %></li>
-      <div class="pull-right user-info">
-          <!--fix this path to new user-->
+        <li><%= link_to "All Wikis", wikis_path %></li>
         <% if user_signed_in? %>
-          Signed in as: <strong><%= current_user.email %></strong> |
+          <li><%= link_to "My Wikis", user_path(current_user) %></li>
+        <% end %>
+
+      <div class="pull-right user-info">
+
+        <% if user_signed_in? %>
+          <strong><%= current_user.email %></strong> |
           <%= link_to 'Edit profile', edit_user_registration_path, :class => 'navbar-link' %> - <%= link_to "Sign Out", destroy_user_session_path, method: :delete, :class => 'navbar-link'  %>
+
         <% else %>
 
           <%= link_to "Sign Up", new_user_registration_path, :class => 'navbar-link'  %> -
