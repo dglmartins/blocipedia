@@ -18,6 +18,10 @@ class ApplicationPolicy
     user.present?
   end
 
+  def authorize_private?
+    user.present?
+  end
+
   def new?
     user.present?
   end

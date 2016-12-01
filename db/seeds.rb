@@ -68,7 +68,7 @@ standardMember = User.create!(
   email: 'premium_member@blocipedia.com',
   password: 'helloworld',
   password_confirmation: 'helloworld',
-  role: 'standard'
+  role: 'premium'
 )
 
 puts "Seed finished"
@@ -77,7 +77,7 @@ puts "#{User.where(role: 'standard').count} standard users created"
 puts "#{User.where(role: 'premium').count} premium users created"
 puts "#{User.where(role: 'admin').count} admin users created"
 puts "#{Wiki.count} wikis created"
-# puts "#{Wiki.where(user: == 'premium').count} wikis created by premium users"
-# puts "#{Wiki.where(user: == 'premium').count} wikis created by premium users"
+puts "#{Wiki.joins(:user).where(users: {role: 0}).count} wikis created by standard users"
+puts "#{Wiki.joins(:user).where(users: {role: 1}).count} wikis created by premium users"
 puts "#{Wiki.where(private: false).count} public wikis created"
 puts "#{Wiki.where(private: true).count} private wikis created"

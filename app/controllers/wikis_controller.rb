@@ -1,6 +1,8 @@
 class WikisController < ApplicationController
 
-  # before_action :authenticate_user!, except: [:index, :show, :edit, :save]
+  before_action :authorize_private, only: [:create]
+
+
   def index
     @wikis = policy_scope(Wiki)
   end
@@ -63,6 +65,19 @@ class WikisController < ApplicationController
     else
       flash.now[:alert] = "There was an error deleting the wiki."
       render :wiki
+    end
+  end
+
+  private
+  def authorize_private
+    wiki = Wiki.new
+    wiki.title = params[:wiki][:title]
+    wiki.body = params[:wiki][:body]
+    wiki.private = params[:wiki][:private]
+    wiki.user = current_user
+    if wiki.private == true && wiki.user.standard?
+      flash[:alert] = "You do not have permission to create private Wikis. Please upgrade to Premium!"
+      redirect_to wikis_path
     end
   end
 
