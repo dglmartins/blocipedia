@@ -4,8 +4,11 @@
   <div class="col-md-8">
     <%= form_for [@wiki, @collaborator] do |f| %>
       <div class="form-group">
-        
-          <%= f.collection_select(:user, User.all, :id, :email) %>
+
+        <%= f.label :user %>
+        <%= f.text_field :user, class: 'form-control', placeholder: 'Enter email of collaborator' %>
+
+          <!-- <%= f.collection_select(:user, User.all, :id, :email) %> -->
 
      </div>
      <div class="form-group">

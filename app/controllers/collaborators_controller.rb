@@ -1,7 +1,7 @@
 class CollaboratorsController < ApplicationController
 
   before_action :check_if_already_collaborator, only: [:create]
-
+  before_action :check_if_user_exists, only: [:create]
   before_action :check_if_private_wiki, only: [:new]
 
   def new
@@ -12,7 +12,7 @@ class CollaboratorsController < ApplicationController
   def create
 
     wiki = Wiki.find(params[:wiki_id])
-    user = User.find(params[:collaborator][:user])
+    user = User.where(email: params[:collaborator][:user]).first
     collaborator = user.collaborators.build(wiki: wiki)
 
     if collaborator.save
@@ -39,10 +39,21 @@ class CollaboratorsController < ApplicationController
    end
 
   private
+  def check_if_user_exists
+    collaborator = Collaborator.new
+    wiki = Wiki.find(params[:wiki_id])
+    user = User.where(email: params[:collaborator][:user]).first
+
+    if !user
+      flash[:alert] = "That email does not belong to a blocipedia user"
+      redirect_to wiki
+    end
+  end
+
   def check_if_already_collaborator
     collaborator = Collaborator.new
     wiki = Wiki.find(params[:wiki_id])
-    user = User.find(params[:collaborator][:user])
+    user = User.where(email: params[:collaborator][:user]).first
 
     if Collaborator.where(user: user, wiki: wiki).count > 0
       flash[:alert] = "User is already a collaborator"
