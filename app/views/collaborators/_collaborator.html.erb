@@ -1,0 +1,12 @@
+<% if collaborator = current_user.collaborator_for(wiki) %>
+
+   <%= link_to [wiki, collaborator], class: 'btn btn-danger', method: :delete do %>
+     <i class="glyphicon glyphicon-star-empty"> </i>&nbsp; Stop collaborating on this wiki
+   <% end %>
+<% end %>
+<% if wiki.user == current_user %>
+   <%= link_to new_wiki_collaborator_path(wiki.id), class: 'btn btn-primary' do %>
+     <i class="glyphicon glyphicon-star"> </i>&nbsp; Add Collaborator
+   <% end %>
+
+<% end %>

@@ -1,2 +1,34 @@
-<h1>This page will contain the User's wikis</h1>
-<p>and the private wikis for which the user is a collaborator</p>
+<h2>My Owned Private Wikis</h2>
+ <% @my_private_wikis.each do |wiki| %>
+   <div class="media">
+     <div class="media-body">
+       <h4 class="media-heading">
+         <%= link_to markdown(wiki.title), wiki %>
+       </h4>
+     </div>
+   </div>
+ <% end %>
+
+ <h2>My Owned Public Wikis</h2>
+  <% @my_public_wikis.each do |wiki| %>
+    <div class="media">
+      <div class="media-body">
+        <h4 class="media-heading">
+          <%= link_to markdown(wiki.title), wiki %>
+        </h4>
+      </div>
+    </div>
+  <% end %>
+
+ <h2>Wikis I Collaborate to</h2>
+  <% @wikis_i_collaborate.each do |wiki| %>
+    <div class="media">
+      <div class="media-body">
+        <h4 class="media-heading">
+          <%= link_to markdown(wiki.title), wiki %>
+        </h4>
+      </div>
+    </div>
+  <% end %>
+
+  <%= link_to "New Wiki", new_wiki_path, class: 'btn btn-success' %>

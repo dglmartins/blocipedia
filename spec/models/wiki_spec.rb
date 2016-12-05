@@ -6,6 +6,7 @@ RSpec.describe Wiki, type: :model do
   let(:other_wiki) {Wiki.create!(title: "New Wiki Title", body: "New Wiki Body", user: my_user)}
 
   it { is_expected.to belong_to(:user) }
+  it { is_expected.to have_many(:collaborators)}
 
   describe "attributes" do
     it "has title, body, private and user attributes" do

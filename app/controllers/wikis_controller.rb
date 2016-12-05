@@ -9,6 +9,7 @@ class WikisController < ApplicationController
 
   def show
     @wiki = Wiki.find(params[:id])
+    @collaborators = User.joins(:collaborators).where(collaborators: { wiki: @wiki })
   end
 
   def new

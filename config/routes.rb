@@ -12,6 +12,12 @@ Rails.application.routes.draw do
 
   resources :charges, only: [:new, :create, :destroy]
 
+  resources :wikis, only: [] do
+
+     resources :collaborators, only: [:new, :create, :destroy]
+   end
+
+
   root 'welcome#index'
 
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html

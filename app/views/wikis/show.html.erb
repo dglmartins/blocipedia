@@ -9,9 +9,29 @@
       <small>This Wiki is Public</small>
      <%end%>
    </div>
+ </div>
    <div class="col-md-4">
  <!-- #5 -->
      <%= link_to "Edit", edit_wiki_path(@wiki), class: 'btn btn-success' %>
      <%= link_to "Delete Wiki", @wiki, method: :delete, class: 'btn btn-danger', data: {confirm: 'Are you sure you want to delete the Wiki?'} %>
    </div>
- </div>
+
+   <div class="row">
+     <% if current_user && @wiki.private %>
+         <%= render partial: 'collaborators/collaborator', locals: { wiki: @wiki } %>
+       <% end %>
+   </div>
+   <div class="row">
+   <% if @wiki.user == current_user %>
+     <div class="col-md-4">
+       <% @collaborators.each do |collaborator| %>
+       <h1>Remove Collaborators</h1>
+
+        <%= link_to [@wiki, collaborator.collaborator_for(@wiki)], class: 'btn btn-danger', method: :delete do %>
+          <i class="glyphicon glyphicon-star-empty"> </i>&nbsp; <%= collaborator.email%>
+        <% end %>
+       <% end %>
+
+     </div>
+  <% end %>
+</div>
