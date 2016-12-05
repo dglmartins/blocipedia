@@ -71,12 +71,12 @@ class WikisController < ApplicationController
 
   private
   def authorize_private
-    wiki = Wiki.new
+    wiki = Wiki.find(params[:id])
     wiki.title = params[:wiki][:title]
     wiki.body = params[:wiki][:body]
     wiki.private = params[:wiki][:private]
     wiki.user = current_user
-    if wiki.private == true && wiki.user.standard?
+    if wiki.private && wiki.user.standard? && Collaborator.where(user: wiki.user, wiki: wiki).count == 0
       flash[:alert] = "You do not have permission to create private Wikis. Please upgrade to Premium!"
       redirect_to wikis_path
     end
