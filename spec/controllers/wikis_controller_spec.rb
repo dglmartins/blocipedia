@@ -71,26 +71,33 @@ RSpec.describe WikisController, type: :controller do
   end
 
   describe "GET #new" do
-    before do
-
-      sign_in my_user
+    context "guest  user" do
+      it "redirects to referrer" do
+        put :new
+        expect(response).to redirect_to(request.referrer || root_path)
+      end
     end
+    context "signed in  user" do
+      before do
 
-    it "returns http success" do
-      get :new
-      expect(response).to have_http_status(:success)
+        sign_in my_user
+      end
+
+      it "returns http success" do
+        get :new
+        expect(response).to have_http_status(:success)
+      end
+
+      it "renders the #new view" do
+        get :new
+        expect(response).to render_template :new
+      end
+
+      it "instantiates @wiki" do
+        get :new
+        expect(assigns(:wiki)).not_to be_nil
+      end
     end
-
-    it "renders the #new view" do
-      get :new
-      expect(response).to render_template :new
-    end
-
-    it "instantiates @wiki" do
-      get :new
-      expect(assigns(:wiki)).not_to be_nil
-    end
-
   end
 
   describe "POST create" do
@@ -176,12 +183,6 @@ RSpec.describe WikisController, type: :controller do
   end
 
   describe "PUT update" do
-    context "guest  user" do
-      it "redirects to referrer" do
-        put :update, {id: my_wiki.id}
-        expect(response).to redirect_to(request.referrer || root_path)
-      end
-    end
 
     context "signed in user" do
       before do

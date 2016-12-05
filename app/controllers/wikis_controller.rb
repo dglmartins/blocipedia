@@ -1,6 +1,6 @@
 class WikisController < ApplicationController
 
-  before_action :authorize_private, only: [:create]
+  before_action :authorize_private, only: [:create, :update]
 
 
   def index

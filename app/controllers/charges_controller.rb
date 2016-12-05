@@ -2,6 +2,8 @@ require 'amount'
 class ChargesController < ApplicationController
 
   before_action :check_if_already_premium, only: [:new, :create]
+  before_action :make_private_wikis_pubic, only: [:downgrade]
+
 
   def new
     key = "#{ Rails.configuration.stripe[:publishable_key] }"
@@ -56,6 +58,14 @@ class ChargesController < ApplicationController
     elsif current_user.admin?
       flash[:alert] = "You are an admin!! No need to pay!"
       redirect_to root_path
+    end
+  end
+
+  def make_private_wikis_pubic
+    private_wikis = Wiki.where(user: current_user, private: true)
+    private_wikis.each do |wiki|
+      wiki.private = false
+      wiki.save
     end
   end
 

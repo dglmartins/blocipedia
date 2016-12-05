@@ -22,7 +22,7 @@
        <% if current_user.standard? %>
         <%= link_to "Upgrade to Premium Plan", new_charge_path, class: 'btn btn-primary' %>
        <% elsif current_user.premium? %>
-        <%= link_to "Downgrade to Free", downgrade_path, class: 'btn btn-danger', data: {confirm: 'Are you sure you want to downgrade? Seems stupid, you have aready paid?'} %>
+        <%= link_to "Downgrade to Free", downgrade_path, class: 'btn btn-danger', data: {confirm: 'Are you sure you want to downgrade? All your private wikis will become public. Seems stupid, you have aready paid?'} %>
        <% else %>
          <h3>You are an admin</h3>
        <%end%>
