@@ -65,3 +65,5 @@ gem 'rails-controller-testing'
 gem 'pundit'
 
 gem 'stripe'
+
+gem 'redcarpet', '~> 3.0.0'
